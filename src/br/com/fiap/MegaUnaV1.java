@@ -2,38 +2,44 @@ package br.com.fiap;
 
 import java.util.Scanner;
 
+//Estilo programação procedural - sem funções
+//Mais performace, utilizados mais em sistemas embarcados
+
 public class MegaUnaV1 {
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-
-        byte numEscolhido;
-        byte numSorteado = 45;
+        int numEscolhido;
+        int numSorteado = (int) (Math.random() * 100 + 1);
         int tentativas = 5;
-        String resposta = "sim";
+        String resposta = "SIM";
+        String jogador;
 
-        System.out.println("Bem-vindo(a) ao Mega Una!");
+        System.out.println("Bem-vinda(o) ao Mega Una!");
 
-        while (resposta.equalsIgnoreCase("sim")) {
-            System.out.println("Digite um número entre 1 e 100:");
-            numEscolhido = sc.nextByte();
+        System.out.println("Qual é seu nome?");
+        jogador = sc.next();
+        sc.nextLine();
 
-            if (numEscolhido == numSorteado) {
-                System.out.println("Ganhou, parabéns!");
+        System.out.println("Olá, " + jogador + ", neste jogo, um número será sorteado. Você é capaz de descobrir?");
+
+        do {
+            tentativas--;
+            System.out.println("Digite um número entre 1 e 100!");
+            numEscolhido = sc.nextInt();
+
+            if(numEscolhido == numSorteado) {
+                System.out.println("Parabéns, " + jogador + "! Você acertou o número sorteado.");
+                break;
             } else {
-                tentativas -= 1;
-                System.out.println("Que pena! Tente de novo, você tem apenas " + tentativas + " tentativa(s)");
-                if (tentativas == 0) {
-                    System.out.println("Você gastou todas as suas tentativas. A resposta era: 45");
-                    break;
-                }
+                System.out.println("Que pena, " + jogador + "! Não foi dessa vez. Mais sorte na próxima :)");
             }
 
-            System.out.println("Gostaria de tentar novamente? (sim/não)");
-            resposta = sc.next();
-        }
+            if(tentativas > 0) {
+                System.out.println("Gostaria de tentar novamente? (sim / não)");
+                resposta = sc.next();
+            }
+        } while(resposta.equalsIgnoreCase("sim") && tentativas > 0);
 
-        System.out.println("Volte sempre!");
+        System.out.println("Obrigada por jogar! Volte sempre!");
     }
 }
-
